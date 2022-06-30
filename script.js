@@ -170,6 +170,8 @@ function resetUI() {
   clearPlayInterval();
   audioSound.pause();
   incrementAndDecrement(false);
+  playStyling.style.color = 'black';
+  pauseStyling.style.color = 'black';
   timerLabel.innerHTML = 'Session';
   audioSound.currentTime = 0;
   minutesLeft = 25;
