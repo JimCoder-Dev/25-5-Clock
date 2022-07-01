@@ -7,13 +7,13 @@ let minutesLabel = document.getElementById('minutes-left');
 
 let sessionContainerLbl = document.getElementById('session-container');
 
-window.onload = function () {
+
   secondsLabel.innerHTML = '00';
   breakLengthLabel.innerHTML = 5;
   sessionLengthLabel.innerHTML = 25;
   timerLabel.innerHTML = 'Session';
   minutesLabel.innerHTML = 25;
-};
+
 
 // //UI Buttons
 let sessionIncrementBtn = document.getElementById('session-increment');
@@ -55,13 +55,18 @@ function everySecond() {
       breakTrueOrFalse = false;
       sessionContainerLbl.classList.remove('session-countdown');
       sessionContainerLbl.classList.add('break-countdown');
-      startCountDown(breakMins, 'Break');
+      coundownLabels('Break')
+      startCountDown(breakMins);            
+     
+      
     } else {
       playSound();
       breakTrueOrFalse = true;
       sessionContainerLbl.classList.remove('break-countdown');
       sessionContainerLbl.classList.add('session-countdown');
-      startCountDown(sessionMins, 'Session');
+      coundownLabels('Session')
+      startCountDown(sessionMins);         
+      
     }
   } else if (secondsLeft <= 0) {
     secondsLeft = 59;
@@ -73,10 +78,14 @@ function everySecond() {
   secondsLeft -= 1;
 }
 
-function startCountDown(minsLeft, message) {
-  timerLabel.innerHTML = message;
+function startCountDown(minsLeft, ) {
+  
   minutesLeft = minsLeft;
   secondsLeft = 0;
+}
+
+function coundownLabels(message){
+  timerLabel.innerHTML = message;
 }
 
 function addZero(number) {
@@ -96,7 +105,6 @@ function clearPlayInterval() {
 }
 
 function playPauseLaunch() {
-  //clearInterval(playPause);
   if (pause) {
     clearPlayInterval();
     pause = false;
@@ -169,6 +177,12 @@ resetBtn.addEventListener('click', resetUI);
 function resetUI() {
   clearPlayInterval();
   audioSound.pause();
+
+  pause = false;
+
+  breakTrueOrFalse = true;
+
+
   incrementAndDecrement(false);
   playStyling.style.color = 'black';
   pauseStyling.style.color = 'black';
